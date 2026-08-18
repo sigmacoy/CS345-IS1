@@ -19,3 +19,4 @@
 # Package & publish outputs
 *.nupkg
 publish/
+.DS_Store
