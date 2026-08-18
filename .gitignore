@@ -1,0 +1,21 @@
+# Build outputs & caches
+[Bb]in/
+[Oo]bj/
+[Aa]pp[Dd]ata/
+
+# Rider & Visual Studio IDE files
+.idea/
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# macOS system files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Package & publish outputs
+*.nupkg
+publish/
