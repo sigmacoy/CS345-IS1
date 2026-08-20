@@ -1,0 +1,590 @@
+<!-- MainWindow.axaml -->
+<!-- MainWindow.axaml -->
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:UI_Components"
+        x:Class="UI_Components.MainWindow"
+        x:DataType="local:MainWindow"
+        Title="UI Components Dashboard"
+        Width="1250"
+        Height="800"
+        MinWidth="1000"
+        MinHeight="650"
+        RequestedThemeVariant="Light"
+        Background="#FFFFFF">
+
+    <Window.Styles>
+        <!-- Default text color for the whole window -->
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="#1E293B"/>
+        </Style>
+
+        <!-- Muted/secondary text (helper captions) -->
+        <Style Selector="TextBlock.muted">
+            <Setter Property="Foreground" Value="#64748B"/>
+        </Style>
+
+        <!-- GroupBox / TabItem headers should also inherit dark text -->
+        <Style Selector="GroupBox">
+            <Setter Property="Foreground" Value="#1E293B"/>
+        </Style>
+
+        <Style Selector="TreeViewItem">
+            <Setter Property="Foreground" Value="#1E293B"/>
+        </Style>
+
+        <Style Selector="ListBoxItem">
+            <Setter Property="Foreground" Value="#1E293B"/>
+        </Style>
+
+        <Style Selector="DataGrid">
+            <Setter Property="Foreground" Value="#1E293B"/>
+        </Style>
+
+        <!-- Buttons: readable on light backgrounds, clear hover/press states -->
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#2563EB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#1D4ED8"/>
+        </Style>
+        <Style Selector="Button TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <!-- ========================================================= -->
+        <!-- MENU BAR                                                   -->
+        <!-- ========================================================= -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New"
+                          Click="New_Click"/>
+                <MenuItem Header="_Save"
+                          Click="Save_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo"/>
+                <MenuItem Header="_Redo"/>
+                <Separator/>
+                <MenuItem Header="_Cut"/>
+                <MenuItem Header="_Copy"/>
+                <MenuItem Header="_Paste"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Refresh"
+                          Click="Refresh_Click"/>
+                <MenuItem Header="Reset Layout"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About"/>
+            </MenuItem>
+        </Menu>
+        <!-- ========================================================= -->
+        <!-- TOOLBAR                                                    -->
+        <!-- ========================================================= -->
+        <Border Grid.Row="1"
+                Background="#F1F5F9"
+                BorderBrush="#CBD5E1"
+                BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="6"
+                        Margin="8,6">
+                <Button Width="60"
+                        Height="32"
+                        ToolTip.Tip="Save"
+                        Click="Save_Click">
+                    <TextBlock Text="Save"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Button>
+                <Button Width="70"
+                        Height="32"
+                        ToolTip.Tip="Refresh"
+                        Click="Refresh_Click">
+                    <TextBlock Text="Refresh"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Button>
+                <Border Width="1"
+                        Height="24"
+                        Background="#CBD5E1"
+                        Margin="5,0"/>
+                <TextBlock Text="UI Components Dashboard"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+        <!-- ========================================================= -->
+        <!-- MAIN CONTENT                                               -->
+        <!-- ========================================================= -->
+        <Grid Grid.Row="2"
+              ColumnDefinitions="250,5,*">
+            <!-- ===================================================== -->
+            <!-- LEFT NAVIGATION                                        -->
+            <!-- ===================================================== -->
+            <Border Grid.Column="0"
+                    Background="#F8FAFC"
+                    BorderBrush="#CBD5E1"
+                    BorderThickness="0,0,1,0">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Grid.Row="0"
+                               Text="Navigation"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Margin="15,15,15,12"/>
+                    <TreeView Grid.Row="1"
+                              Margin="8,0,8,10">
+                        <!-- ADMIN -->
+                        <TreeViewItem Header="Admin"
+                                      IsExpanded="True">
+                            <TreeViewItem Header="Dashboard"/>
+                            <TreeViewItem Header="User Management"/>
+                            <TreeViewItem Header="Reports"/>
+                        </TreeViewItem>
+                        <!-- USERS -->
+                        <TreeViewItem Header="Users"
+                                      IsExpanded="True">
+                            <TreeViewItem Header="User Profiles"/>
+                            <TreeViewItem Header="Departments"/>
+                            <TreeViewItem Header="Roles"/>
+                        </TreeViewItem>
+                        <!-- SETTINGS -->
+                        <TreeViewItem Header="Settings"
+                                      IsExpanded="True">
+                            <TreeViewItem Header="System Preferences"/>
+                            <TreeViewItem Header="Appearance"/>
+                            <TreeViewItem Header="Security"/>
+                        </TreeViewItem>
+                    </TreeView>
+                </Grid>
+            </Border>
+            <!-- ===================================================== -->
+            <!-- SPLITTER                                               -->
+            <!-- ===================================================== -->
+            <GridSplitter Grid.Column="1"
+                          Width="5"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"/>
+            <!-- ===================================================== -->
+            <!-- RIGHT WORKSPACE                                        -->
+            <!-- ===================================================== -->
+            <Border Grid.Column="2"
+                    Padding="12">
+                <TabControl>
+                    <!-- ================================================= -->
+                    <!-- TAB 1 - USER PROFILE                             -->
+                    <!-- ================================================= -->
+                    <TabItem Header="User Profile Form">
+                        <ScrollViewer>
+                            <Grid Margin="15"
+                                  RowDefinitions="Auto,Auto"
+                                  RowSpacing="15">
+                                <!-- PERSONAL INFORMATION -->
+                                <GroupBox Grid.Row="0"
+                                          Header="Personal Information"
+                                          Padding="15">
+                                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                                          ColumnDefinitions="180,*"
+                                          RowSpacing="12"
+                                          ColumnSpacing="15">
+                                        <!-- FULL NAME -->
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Text="Full Name"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBox Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Watermark="Enter full name"/>
+                                        <!-- BIRTHDATE -->
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   Text="Birthdate"
+                                                   VerticalAlignment="Center"/>
+                                        <DatePicker Grid.Row="1"
+                                                    Grid.Column="1"/>
+                                        <!-- AGE -->
+                                        <TextBlock Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   Text="Age / Experience"
+                                                   VerticalAlignment="Center"/>
+                                        <NumericUpDown Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Minimum="0"
+                                                       Maximum="100"
+                                                       Value="20"/>
+                                        <!-- DEPARTMENT -->
+                                        <TextBlock Grid.Row="3"
+                                                   Grid.Column="0"
+                                                   Text="Department"
+                                                   VerticalAlignment="Center"/>
+                                        <ComboBox Grid.Row="3"
+                                                  Grid.Column="1"
+                                                  SelectedIndex="0">
+                                            <ComboBoxItem Content="Human Resources"/>
+                                            <ComboBoxItem Content="Information Technology"/>
+                                            <ComboBoxItem Content="Sales"/>
+                                            <ComboBoxItem Content="Finance"/>
+                                            <ComboBoxItem Content="Marketing"/>
+                                        </ComboBox>
+                                        <!-- GENDER -->
+                                        <TextBlock Grid.Row="4"
+                                                   Grid.Column="0"
+                                                   Text="Gender"
+                                                   VerticalAlignment="Center"/>
+                                        <StackPanel Grid.Row="4"
+                                                    Grid.Column="1"
+                                                    Orientation="Horizontal"
+                                                    Spacing="20">
+                                            <RadioButton Content="Male"
+                                                         GroupName="Gender"/>
+                                            <RadioButton Content="Female"
+                                                         GroupName="Gender"/>
+                                            <RadioButton Content="Other"
+                                                         GroupName="Gender"/>
+                                        </StackPanel>
+                                        <!-- NEWSLETTER -->
+                                        <TextBlock Grid.Row="5"
+                                                   Grid.Column="0"
+                                                   Text="Newsletter"
+                                                   VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="5"
+                                                  Grid.Column="1"
+                                                  Content="Subscribe to Newsletter"/>
+                                        <!-- BIOGRAPHY -->
+                                        <TextBlock Grid.Row="6"
+                                                   Grid.Column="0"
+                                                   Text="Biography / Notes"
+                                                   VerticalAlignment="Top"/>
+                                        <TextBox Grid.Row="6"
+                                                 Grid.Column="1"
+                                                 Height="130"
+                                                 AcceptsReturn="True"
+                                                 TextWrapping="Wrap"
+                                                 VerticalContentAlignment="Top"
+                                                 Watermark="Enter biography or notes..."/>
+                                    </Grid>
+                                </GroupBox>
+                                <!-- SAVE PROFILE -->
+                                <Button Grid.Row="1"
+                                        Content="Save Profile"
+                                        Padding="20,8"
+                                        HorizontalAlignment="Right"
+                                        Click="SaveProfile_Click"/>
+                            </Grid>
+                        </ScrollViewer>
+                    </TabItem>
+                    <!-- ================================================= -->
+                    <!-- TAB 2 - DATA & MEDIA DASHBOARD                   -->
+                    <!-- ================================================= -->
+                    <TabItem Header="Data &amp; Media Dashboard">
+                        <Grid Margin="15"
+                              RowDefinitions="170,*,150"
+                              ColumnDefinitions="250,*,250"
+                              RowSpacing="12"
+                              ColumnSpacing="12">
+                            <!-- ================================================= -->
+                            <!-- PICTURE / AVATAR                                 -->
+                            <!-- ================================================= -->
+                            <Border Grid.Row="0"
+                                    Grid.Column="0"
+                                    Background="#F1F5F9"
+                                    BorderBrush="#CBD5E1"
+                                    BorderThickness="1"
+                                    CornerRadius="6">
+                                <StackPanel HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Spacing="10">
+                                    <Border Width="85"
+                                            Height="85"
+                                            CornerRadius="42"
+                                            Background="#2563EB">
+                                        <TextBlock Text="USER"
+                                                   FontSize="14"
+                                                   FontWeight="Bold"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Text="Sample Company"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <!-- ================================================= -->
+                            <!-- RECENT FILES                                     -->
+                            <!-- ================================================= -->
+                            <Border Grid.Row="0"
+                                    Grid.Column="1"
+                                    BorderBrush="#CBD5E1"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    Padding="12">
+                                <Grid RowDefinitions="Auto,*">
+                                    <TextBlock Grid.Row="0"
+                                               Text="Recent Files"
+                                               FontWeight="Bold"
+                                               Margin="0,0,0,8"/>
+                                    <ListBox Grid.Row="1">
+                                        <ListBoxItem Content="Document - UserProfile.docx"/>
+                                        <ListBoxItem Content="Spreadsheet - Dashboard.xlsx"/>
+                                        <ListBoxItem Content="Image - CompanyLogo.png"/>
+                                        <ListBoxItem Content="Report - MonthlyReport.pdf"/>
+                                    </ListBox>
+                                </Grid>
+                            </Border>
+                            <!-- ================================================= -->
+                            <!-- SYSTEM LOG                                       -->
+                            <!-- ================================================= -->
+                            <Border Grid.Row="0"
+                                    Grid.Column="2"
+                                    Background="#0F172A"
+                                    CornerRadius="6"
+                                    Padding="12">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="System Log"
+                                               Foreground="White"
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="14:01  Application started"
+                                               Foreground="#CBD5E1"
+                                               FontSize="12"/>
+                                    <TextBlock Text="14:02  User authenticated"
+                                               Foreground="#CBD5E1"
+                                               FontSize="12"/>
+                                    <TextBlock Text="14:03  Profile loaded"
+                                               Foreground="#CBD5E1"
+                                               FontSize="12"/>
+                                    <TextBlock Text="14:04  Dashboard refreshed"
+                                               Foreground="#CBD5E1"
+                                               FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+                            <!-- ================================================= -->
+                            <!-- DATA GRID                                        -->
+                            <!-- ================================================= -->
+                            <Border Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    BorderBrush="#CBD5E1"
+                                    BorderThickness="1"
+                                    CornerRadius="6">
+                                <DataGrid ItemsSource="{Binding Users}"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          GridLinesVisibility="All">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID"
+                                                            Binding="{Binding Id}"
+                                                            Width="100"/>
+                                        <DataGridTextColumn Header="Name"
+                                                            Binding="{Binding Name}"
+                                                            Width="*"/>
+                                        <DataGridTextColumn Header="Role"
+                                                            Binding="{Binding Role}"
+                                                            Width="200"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                            <!-- ================================================= -->
+                            <!-- ACTIVITY LIST                                    -->
+                            <!-- ================================================= -->
+                            <Border Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    BorderBrush="#CBD5E1"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    Padding="10">
+                                <Grid RowDefinitions="Auto,*">
+                                    <TextBlock Grid.Row="0"
+                                               Text="Recent System Activities"
+                                               FontWeight="Bold"
+                                               Margin="0,0,0,8"/>
+                                    <ListBox Grid.Row="1">
+                                        <ListBoxItem Content="User profile updated"/>
+                                        <ListBoxItem Content="Dashboard refreshed"/>
+                                        <ListBoxItem Content="New user registered"/>
+                                        <ListBoxItem Content="System preferences saved"/>
+                                        <ListBoxItem Content="Report generated"/>
+                                    </ListBox>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                    <!-- ================================================= -->
+                    <!-- TAB 3 - SYSTEM PREFERENCES                       -->
+                    <!-- ================================================= -->
+                    <TabItem Header="System Preferences">
+                        <Grid Margin="30"
+                              RowDefinitions="Auto,Auto,Auto,Auto"
+                              ColumnDefinitions="220,*"
+                              RowSpacing="20">
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="System Preferences"
+                                       FontSize="22"
+                                       FontWeight="Bold"/>
+                            <!-- VOLUME / BRIGHTNESS -->
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="System Volume / Brightness"
+                                       VerticalAlignment="Center"/>
+                            <Slider Grid.Row="1"
+                                    Grid.Column="1"
+                                    Minimum="0"
+                                    Maximum="100"
+                                    Value="75"/>
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="1"
+                                       Text="Adjust the level from 0 to 100"
+                                       Classes="muted"/>
+                            <Button Grid.Row="3"
+                                    Grid.Column="1"
+                                    Content="Save Preferences"
+                                    Width="150"
+                                    Height="35"
+                                    HorizontalAlignment="Left"
+                                    Click="SavePreferences_Click"/>
+                        </Grid>
+                    </TabItem>
+                    
+                    <!-- ================================================= -->
+                    <!-- TAB 4 - MORE CONTROLS                            -->
+                    <!-- ================================================= -->
+                    <TabItem Header="More Controls">
+                        <ScrollViewer>
+                            <StackPanel Margin="20" Spacing="20">
+
+                                <!-- RICH TEXT BOX -->
+                                <!-- Avalonia has no native RichTextBox; closest built-in is a
+                                     multiline TextBox. For real rich text (bold/color/etc.)
+                                     you'd need the third-party AvaloniaEdit library. -->
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="Rich Text (multiline TextBox stand-in)" FontWeight="Bold"/>
+                                    <TextBox AcceptsReturn="True"
+                                             TextWrapping="Wrap"
+                                             Height="100"
+                                             Text="Avalonia has no native RichTextBox control."/>
+                                </StackPanel>
+
+                                <!-- LISTVIEW (details view) -->
+                                <!-- No ListView control exists; emulate with a ListBox whose
+                                     items are laid out in columns. -->
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="ListView (emulated via ListBox)" FontWeight="Bold"/>
+                                    <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="4">
+                                        <Grid RowDefinitions="Auto,*">
+                                            <Grid Grid.Row="0" ColumnDefinitions="*,*,*" Background="#F1F5F9">
+                                                <TextBlock Grid.Column="0" Text="Name" FontWeight="SemiBold" Margin="8,4"/>
+                                                <TextBlock Grid.Column="1" Text="Type" FontWeight="SemiBold" Margin="8,4"/>
+                                                <TextBlock Grid.Column="2" Text="Size" FontWeight="SemiBold" Margin="8,4"/>
+                                            </Grid>
+                                            <ListBox Grid.Row="1">
+                                                <ListBoxItem>
+                                                    <Grid ColumnDefinitions="*,*,*">
+                                                        <TextBlock Grid.Column="0" Text="Report.pdf"/>
+                                                        <TextBlock Grid.Column="1" Text="PDF"/>
+                                                        <TextBlock Grid.Column="2" Text="2.1 MB"/>
+                                                    </Grid>
+                                                </ListBoxItem>
+                                                <ListBoxItem>
+                                                    <Grid ColumnDefinitions="*,*,*">
+                                                        <TextBlock Grid.Column="0" Text="Logo.png"/>
+                                                        <TextBlock Grid.Column="1" Text="PNG"/>
+                                                        <TextBlock Grid.Column="2" Text="512 KB"/>
+                                                    </Grid>
+                                                </ListBoxItem>
+                                            </ListBox>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+
+                                <!-- PICTUREBOX / IMAGE -->
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="Image (PictureBox equivalent)" FontWeight="Bold"/>
+                                    <Border Width="120" Height="120" BorderBrush="#CBD5E1" BorderThickness="1">
+                                        <Image x:Name="SampleImage"
+                                               Stretch="Uniform"/>
+                                    </Border>
+                                    <TextBlock Text="Set SampleImage.Source in code-behind or via avares:// path."
+                                               Classes="muted" FontSize="12"/>
+                                </StackPanel>
+
+                                <!-- DATETIMEPICKER -->
+                                <!-- No combined DateTimePicker; use DatePicker + TimePicker together. -->
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="DateTimePicker (Date + Time)" FontWeight="Bold"/>
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <DatePicker/>
+                                        <TimePicker/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- PANEL -->
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="Panel (WrapPanel)" FontWeight="Bold"/>
+                                    <Border BorderBrush="#CBD5E1" BorderThickness="1" Padding="8">
+                                        <WrapPanel>
+                                            <Button Content="Tag 1" Margin="4"/>
+                                            <Button Content="Tag 2" Margin="4"/>
+                                            <Button Content="Tag 3" Margin="4"/>
+                                            <Button Content="Tag 4" Margin="4"/>
+                                        </WrapPanel>
+                                    </Border>
+                                </StackPanel>
+
+                                <!-- SPLITCONTAINER -->
+                                <!-- GridSplitter (already used on the main window) is Avalonia's
+                                     closest match. SplitView is a different pattern (overlay pane),
+                                     shown here for completeness. -->
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="SplitContainer (SplitView)" FontWeight="Bold"/>
+                                    <SplitView IsPaneOpen="True"
+                                               DisplayMode="Inline"
+                                               OpenPaneLength="150"
+                                               Height="120">
+                                        <SplitView.Pane>
+                                            <Border Background="#F1F5F9" Padding="10">
+                                                <TextBlock Text="Pane content"/>
+                                            </Border>
+                                        </SplitView.Pane>
+                                        <Border Padding="10">
+                                            <TextBlock Text="Main content"/>
+                                        </Border>
+                                    </SplitView>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+                    
+                </TabControl>
+            </Border>
+        </Grid>
+        
+        <!-- ========================================================= -->
+        <!-- FOOTER / STATUS BAR                                      -->
+        <!-- ========================================================= -->
+        <Border Grid.Row="3"
+                Background="#F1F5F9"
+                BorderBrush="#CBD5E1"
+                BorderThickness="0,1,0,0"
+                Padding="10,6">
+            <Grid ColumnDefinitions="*,Auto,Auto,220">
+                <TextBlock Grid.Column="0" Text="Ready..." VerticalAlignment="Center"/>
+                <Border Grid.Column="1" Width="1" Background="#CBD5E1" Margin="10,0"/>
+                <TextBlock Grid.Column="2" Text="Users: 24" VerticalAlignment="Center" Classes="muted"/>
+                <ProgressBar Grid.Column="3"
+                             Minimum="0" Maximum="100" Value="100"
+                             Height="12" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
