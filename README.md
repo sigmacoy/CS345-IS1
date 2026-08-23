@@ -1,6 +1,4 @@
-# Hello You!
+# Hello You! May all the stars aligned in your favor!
 
-## May all the stars aligned in your favor!
-
-## 1. Avalonia Documentation Controls: https://docs.avaloniaui.net/controls/
+### 1. Avalonia Documentation Controls: https://docs.avaloniaui.net/controls/
 
