@@ -1,32 +1,30 @@
+<!-- Form1.axaml -->
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="450"
         x:Class="Aug19.Form1"
         Title="Aug19"
+        Width="850" Height="450"
         Background="#F3F3F3">
     
-    <Canvas>
-        <Button Content="button1" 
-                Canvas.Left="30" Canvas.Top="30" 
-                Width="80" Height="35" 
-                Background="White" BorderBrush="LightGray" BorderThickness="1"/>
+        <Canvas>
+                <Button x:Name="button1" Content="Start BFS" Click="button1_Click" 
+                        Canvas.Left="30" Canvas.Top="30" 
+                        Width="80" Height="35" 
+                        Background="White" BorderBrush="LightGray" BorderThickness="1"/>
         
-        <Border Canvas.Left="30" Canvas.Top="90" 
-                Width="200" Height="280" 
-                Background="White" BorderBrush="LightGray" BorderThickness="1"/>
+                <ScrollViewer Canvas.Left="30" Canvas.Top="90" Width="200" Height="280">
+                        <TextBlock x:Name="richTextBox1" Background="White" Padding="5"/>
+                </ScrollViewer>
         
-        <Border Canvas.Left="240" Canvas.Top="90" 
-                Width="200" Height="200" 
-                Background="#FDB9EA" BorderBrush="Gray" BorderThickness="1" BorderDashArray="2,2"/>
+                <Canvas x:Name="pictureBox1" Canvas.Left="240" Canvas.Top="90" 
+                        Width="200" Height="200" Background="#FDB9EA" />
         
-        <Border Canvas.Left="450" Canvas.Top="90" 
-                Width="140" Height="280" 
-                Background="White" BorderBrush="LightGray" BorderThickness="1"/>
+                <ScrollViewer Canvas.Left="450" Canvas.Top="90" Width="140" Height="280">
+                        <TextBlock x:Name="richTextBox2" Background="White" Padding="5"/>
+                </ScrollViewer>
         
-        <Border Canvas.Left="600" Canvas.Top="90" 
-                Width="140" Height="280" 
-                Background="White" BorderBrush="LightGray" BorderThickness="1"/>
-    </Canvas>
+                <ScrollViewer Canvas.Left="600" Canvas.Top="90" Width="140" Height="280">
+                        <TextBlock x:Name="richTextBox3" Background="White" Padding="5"/>
+                </ScrollViewer>
+        </Canvas>
 </Window>
