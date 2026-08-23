@@ -107,3 +107,4 @@ public partial class Form1 : Window
         pictureBox1.Children.Add(currentRect);
     }
 }
+// Test
