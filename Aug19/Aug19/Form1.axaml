@@ -9,22 +9,53 @@
         <Canvas>
                 <Button x:Name="button1" Content="Start BFS" Click="button1_Click" 
                         Canvas.Left="30" Canvas.Top="30" 
-                        Width="80" Height="35" 
-                        Background="White" BorderBrush="LightGray" BorderThickness="1"/>
+                        Width="85" Height="35" 
+                        Background="White" Foreground="Black" 
+                        BorderBrush="LightGray" BorderThickness="1"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                        <Button.Styles>
+                                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                        <Setter Property="Background" Value="#E6E6E6"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="BorderBrush" Value="Gray"/>
+                                </Style>
+                                
+                        </Button.Styles>
+                </Button>
+                
+                <Button x:Name="button2" Content="Start DFS" Click="button2_Click" 
+                        Canvas.Left="120" Canvas.Top="30" 
+                        Width="85" Height="35" 
+                        Background="White" Foreground="Black" 
+                        BorderBrush="LightGray" BorderThickness="1"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                        <Button.Styles>
+                                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                        <Setter Property="Background" Value="#E6E6E6"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="BorderBrush" Value="Gray"/>
+                                </Style>
+                                
+                        </Button.Styles>
+                </Button>
         
                 <ScrollViewer Canvas.Left="30" Canvas.Top="90" Width="200" Height="280">
-                        <TextBlock x:Name="richTextBox1" Background="White" Padding="5"/>
+                        <TextBlock x:Name="richTextBox1" Background="White" Foreground="Black" Padding="5"/>
                 </ScrollViewer>
         
                 <Canvas x:Name="pictureBox1" Canvas.Left="240" Canvas.Top="90" 
                         Width="200" Height="200" Background="#FDB9EA" />
-        
+                
+                <TextBlock x:Name="label1" Canvas.Left="450" Canvas.Top="65" Text="Queue" Foreground="Black" FontWeight="Bold"/>
+                
                 <ScrollViewer Canvas.Left="450" Canvas.Top="90" Width="140" Height="280">
-                        <TextBlock x:Name="richTextBox2" Background="White" Padding="5"/>
+                        <TextBlock x:Name="richTextBox2" Background="White" Foreground="Black" Padding="5"/>
                 </ScrollViewer>
-        
+                
+                <TextBlock Canvas.Left="600" Canvas.Top="65" Text="Explored" Foreground="Black" FontWeight="Bold"/>
+                
                 <ScrollViewer Canvas.Left="600" Canvas.Top="90" Width="140" Height="280">
-                        <TextBlock x:Name="richTextBox3" Background="White" Padding="5"/>
+                        <TextBlock x:Name="richTextBox3" Background="White" Foreground="Black" Padding="5"/>
                 </ScrollViewer>
         </Canvas>
 </Window>
