@@ -28,7 +28,12 @@ public partial class Form1 : Window
     private CancellationTokenSource cts;
 
     public async Task runBFS(Node start, Node goal)
-    {
+    {   
+        if (MazeSolver.GetGrid()[start.Row, start.Col] == 1)
+        {
+            richTextBox1.Text = "Error: Black Cell Started!";
+            return;
+        }
         parentMap = new Dictionary<Node, Node>();
         richTextBox1.Text = "running BFS";
         label1.Text = "Queue";
@@ -80,7 +85,7 @@ public partial class Form1 : Window
             richTextBox3.Text = string.Join("\n", visited);
             richTextBox4.Text = string.Join("\n", origin);
             
-            try { await Task.Delay(100, cts.Token); } 
+            try { await Task.Delay(1, cts.Token); } 
             catch (TaskCanceledException) { return; } // Safely exit if stopped
         }
 
@@ -89,6 +94,11 @@ public partial class Form1 : Window
     
     public async Task runDFS(Node start, Node goal)
     {    
+        if (MazeSolver.GetGrid()[start.Row, start.Col] == 1)
+        {
+            richTextBox1.Text = "Error: Black Cell Started!";
+            return;
+        }
         parentMap = new Dictionary<Node, Node>();
         richTextBox1.Text = "running DFS";
         label1.Text = "Stack";
@@ -144,7 +154,7 @@ public partial class Form1 : Window
             richTextBox3.Text = string.Join("\n", visited);
             richTextBox4.Text = string.Join("\n", origin);
             
-            try { await Task.Delay(100, cts.Token); } 
+            try { await Task.Delay(1, cts.Token); } 
             catch (TaskCanceledException) { return; } // Safely exit if stopped
         }
 
