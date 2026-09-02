@@ -24,11 +24,15 @@ public class MazeEnvironment
     
     public static class MazeSolver
     {   
-        private static readonly int[,] Grid = new int[20, 20];
+        // private static readonly int[,] Grid = new int[20, 20];
+        
+        // Use below for prelimDFS
+        private static readonly int[,] Grid = new int[13, 10];
         
         static MazeSolver()
         {
-            Randomize();
+            prelimDFS();
+            // Randomize();
         }
         
         public static void Randomize()
@@ -47,6 +51,30 @@ public class MazeEnvironment
             Grid[19, 19] = 0;
         }
 
+        public static void prelimDFS()
+        {
+            int[,] temp =
+            {
+                { 0,0,0,1,1,1,0,0,0,0 },    // 1
+                { 0,0,1,0,0,0,1,1,0,0 },    // 11
+                { 1,0,0,0,1,0,0,1,0,0 }, //    21 start 2, 3
+                { 0,0,0,0,0,1,0,1,0,0 },    // 31
+                { 0,1,0,1,0,1,0,1,0,0 },    // 41
+                { 0,0,0,1,0,1,0,0,1,0 },    // 51
+                { 1,0,0,0,0,0,0,1,1,0 },    // 61
+                { 0,0,0,1,0,0,0,0,0,0 },    // 71
+                { 0,0,0,1,1,0,0,1,1,0 },    // 81 end 7, 6
+                { 0,0,0,0,0,1,1,0,0,0 },    // 101
+                { 0,0,0,0,1,0,0,0,0,0 },    // 111
+                { 0,0,0,0,0,0,0,0,0,0 },    // 121
+                { 0,0,0,0,0,0,0,0,0,0 }     // 131
+            };
+
+            for (int r = 0; r < 12; r++)
+                for (int c = 0; c < 10; c++)
+                    Grid[r, c] = temp[r, c];
+        }
+        
         public static int[,] GetGrid() => Grid;
 
         public static IEnumerable<Node> GetNeighbors(Node current)

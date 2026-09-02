@@ -1,4 +1,6 @@
 // Form1.axaml.cs
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -136,12 +138,26 @@ public partial class Form1 : Window
             }
 
             // REVERSE so it pushes Right, Left, Down, Up -> pops Up, Down, Left, Right
-            var neighbors = MazeSolver.GetNeighbors(current).ToList();
+            var neighbors = new List<Node>
+            {
+                new Node(current.Row - 1, current.Col), // UP
+                new Node(current.Row + 1, current.Col), // DOWN
+                new Node(current.Row, current.Col - 1), // LEFT
+                new Node(current.Row, current.Col + 1)  // RIGHT
+            };
+            // Reverse because Stack is LIFO
             neighbors.Reverse();
 
-            foreach(Node next in neighbors)
+            foreach (Node next in neighbors)
             {
-                if (!visited.Contains(next))
+                int[,] grid = MazeSolver.GetGrid();
+
+                if (next.Row >= 0 &&
+                    next.Row < grid.GetLength(0) &&
+                    next.Col >= 0 &&
+                    next.Col < grid.GetLength(1) &&
+                    grid[next.Row, next.Col] == 0 &&
+                    !visited.Contains(next))
                 {
                     visited.Add(next);
                     frontierStack.Push(next);
@@ -154,7 +170,7 @@ public partial class Form1 : Window
             richTextBox3.Text = string.Join("\n", visited);
             richTextBox4.Text = string.Join("\n", origin);
             
-            try { await Task.Delay(1, cts.Token); } 
+            try { await Task.Delay(1000, cts.Token); } 
             catch (TaskCanceledException) { return; } // Safely exit if stopped
         }
 
@@ -242,6 +258,12 @@ public partial class Form1 : Window
     private Node ParseNode(string input)
     {
         var parts = input.Split(',');
-        return new Node(int.Parse(parts[0]), int.Parse(parts[1]));
+        if (parts.Length != 2)
+            throw new FormatException("Enter coordinates as row,column");
+
+        int row = int.Parse(parts[0]);
+        int col = int.Parse(parts[1]);
+
+        return new Node(row, col);
     }
 }
