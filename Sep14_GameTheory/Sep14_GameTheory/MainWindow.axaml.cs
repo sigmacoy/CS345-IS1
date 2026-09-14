@@ -259,3 +259,19 @@ public partial class MainWindow : Window
         InitializeGame();
     }
 }
+
+/*
+   Human chooses X
+          ↓
+   Check game over
+          ↓
+   AI considers every possible O move
+          ↓
+   Minimax evaluates future moves
+          ↓
+   Alpha-Beta Pruning skips unnecessary branches
+          ↓
+   Best-scoring move selected
+          ↓
+   AI places O
+*/
