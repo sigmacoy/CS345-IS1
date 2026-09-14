@@ -1,143 +1,283 @@
-import sys
-import math
-
 def triangular_membership(x, a, b, c):
     """
-    Helper function for Triangular Membership Function
-    Parameters: x (input value), a (left foot), b (peak), c (right foot)
+    Triangular Membership Function
+    a = left foot
+    b = peak
+    c = right foot
     """
-    if x <= a or x >= c:
+
+    if x < a or x > c:
         return 0.0
+
     if x == b:
         return 1.0
-    if x > a and x < b:
+
+    if x < b:
         return (x - a) / (b - a)
+
     return (c - x) / (c - b)
 
+
 def draw_bar(label, value, max_val, unit=""):
-    """
-    Draws a visual text bar for the console output.
-    Example: Height: [====  ] 2m
-    """
     bar_length = 20
     filled = int((value / max_val) * bar_length)
     filled = min(max(filled, 0), bar_length)
+
     bar = "=" * filled + " " * (bar_length - filled)
+
     print(f"{label:<12}: [{bar}] {value:.2f}{unit}")
 
+
 def main():
+
     print("=== BMX Landing Impact Calculator ===")
-    
+
     try:
-        height_input = input("Enter Drop Height (0 to 5m): ")
-        height = float(height_input)
-        height = min(max(height, 0.0), 5.0) # clamp to 0-5
-        
-        speed_input = input("Enter Landing Speed (0 to 40km/h): ")
-        speed = float(speed_input)
-        speed = min(max(speed, 0.0), 40.0) # clamp to 0-40
+        height = float(input("Enter Drop Height (0 to 5m): "))
+        height = min(max(height, 0.0), 5.0)
+
+        speed = float(input("Enter Landing Speed (0 to 40km/h): "))
+        speed = min(max(speed, 0.0), 40.0)
+
     except ValueError:
         print("Invalid input! Please enter numeric values.")
         return
-        
+
     print("\nSelect Logic:")
     print("a - Mamdani")
     print("b - Sugeno")
+
     logic = input("Choice (a/b): ").strip().lower()
 
-    if logic not in ['a', 'b']:
+    if logic not in ["a", "b"]:
         print("Invalid choice.")
         return
 
-    # Visuals of inputs
+    # -------------------------
+    # INPUT VISUALIZATION
+    # -------------------------
+
     print("\n--- Inputs ---")
+
     draw_bar("Height", height, 5.0, "m")
     draw_bar("Speed", speed, 40.0, "km/h")
 
-    # 1. FUZZIFICATION
-    # Drop Height Memberships (Low, Medium, High)
+    # -------------------------
+    # FUZZIFICATION
+    # -------------------------
+
     h_low = triangular_membership(height, -1, 0, 2.5)
     h_med = triangular_membership(height, 0, 2.5, 5)
     h_high = triangular_membership(height, 2.5, 5, 6)
 
-    # Landing Speed Memberships (Slow, Medium, Fast)
     s_slow = triangular_membership(speed, -1, 0, 20)
     s_med = triangular_membership(speed, 0, 20, 40)
     s_fast = triangular_membership(speed, 20, 40, 41)
 
     print("\n--- Fuzzification Results ---")
-    print(f"Height [Low: {h_low:.2f}, Med: {h_med:.2f}, High: {h_high:.2f}]")
-    print(f"Speed  [Slow: {s_slow:.2f}, Med: {s_med:.2f}, Fast: {s_fast:.2f}]")
- 
-    # 2. RULE EVALUATION
-    # Rule 1: IF Height is High OR Speed is Fast, THEN Bend is Deep
-    # Rule 2: IF Height is Medium AND Speed is Medium, THEN Bend is Moderate
-    # Rule 3: IF Height is Low AND Speed is Slow, THEN Bend is Stiff
-    rule1_strength = max(h_high, s_fast)    # Deep
-    rule2_strength = min(h_med, s_med)      # Moderate
-    rule3_strength = min(h_low, s_slow)     # Stiff
+
+    print(
+        f"Height [Low: {h_low:.2f}, "
+        f"Medium: {h_med:.2f}, "
+        f"High: {h_high:.2f}]"
+    )
+
+    print(
+        f"Speed  [Slow: {s_slow:.2f}, "
+        f"Medium: {s_med:.2f}, "
+        f"Fast: {s_fast:.2f}]"
+    )
+
+    # -------------------------
+    # RULE EVALUATION
+    # -------------------------
+
+    # Rule 1:
+    # IF Height is Low AND Speed is Slow
+    # THEN Bend is Stiff
+    r1 = min(h_low, s_slow)
+
+    # Rule 2:
+    # IF Height is Low AND Speed is Medium
+    # THEN Bend is Moderate
+    r2 = min(h_low, s_med)
+
+    # Rule 3:
+    # IF Height is Low AND Speed is Fast
+    # THEN Bend is Moderate
+    r3 = min(h_low, s_fast)
+
+    # Rule 4:
+    # IF Height is Medium AND Speed is Slow
+    # THEN Bend is Moderate
+    r4 = min(h_med, s_slow)
+
+    # Rule 5:
+    # IF Height is Medium AND Speed is Medium
+    # THEN Bend is Moderate
+    r5 = min(h_med, s_med)
+
+    # Rule 6:
+    # IF Height is Medium AND Speed is Fast
+    # THEN Bend is Deep
+    r6 = min(h_med, s_fast)
+
+    # Rule 7:
+    # IF Height is High AND Speed is Slow
+    # THEN Bend is Moderate
+    r7 = min(h_high, s_slow)
+
+    # Rule 8:
+    # IF Height is High AND Speed is Medium
+    # THEN Bend is Deep
+    r8 = min(h_high, s_med)
+
+    # Rule 9:
+    # IF Height is High AND Speed is Fast
+    # THEN Bend is Deep
+    r9 = min(h_high, s_fast)
 
     print("\n--- Rule Firing Strengths ---")
-    print(f"Rule 1 (Deep): {rule1_strength:.2f}")
-    print(f"Rule 2 (Moderate): {rule2_strength:.2f}")
-    print(f"Rule 3 (Stiff): {rule3_strength:.2f}")
 
-    if logic == 'a':
-        # MAMDANI DEFUZZIFICATION
+    print(f"Rule 1  (Stiff):    {r1:.2f}")
+    print(f"Rule 2  (Moderate): {r2:.2f}")
+    print(f"Rule 3  (Moderate): {r3:.2f}")
+    print(f"Rule 4  (Moderate): {r4:.2f}")
+    print(f"Rule 5  (Moderate): {r5:.2f}")
+    print(f"Rule 6  (Deep):     {r6:.2f}")
+    print(f"Rule 7  (Moderate): {r7:.2f}")
+    print(f"Rule 8  (Deep):     {r8:.2f}")
+    print(f"Rule 9  (Deep):     {r9:.2f}")
+
+    # -------------------------
+    # MAMDANI
+    # -------------------------
+
+    if logic == "a":
+
         print("\n=== Mamdani Output ===")
-        # Output memberships (Knee Bend Absorption 0 to 100%)
-        sumNumerator = 0.0
-        sumDenominator = 0.0
-        step = 0.5
-        
-        y = 0.0
-        while y <= 100.0:
-            outStiff = triangular_membership(y, -1, 0, 50.0)
-            outModerate = triangular_membership(y, 25.0, 50.0, 75.0)
-            outDeep = triangular_membership(y, 50.0, 100.0, 101.0)
-            
-            clippedStiff = min(rule3_strength, outStiff)
-            clippedModerate = min(rule2_strength, outModerate)
-            clippedDeep = min(rule1_strength, outDeep)
-            
-            aggregatedY = max(clippedStiff, max(clippedModerate, clippedDeep))
-            
-            sumNumerator += y * aggregatedY * step
-            sumDenominator += aggregatedY * step
-            
-            y += step
-            
-        crispOutput = 0.0
-        if sumDenominator > 0.0:
-            crispOutput = sumNumerator / sumDenominator
-            
-        draw_bar("Knee Bend", crispOutput, 100.0, "%")
 
-    elif logic == 'b':
-        print("\n=== Sugeno Output ===")
-        # Sugeno output equations
-        # Deep Bend uses strict math formula from requirements:
-        z_deep = (height * 15) + (speed * 0.5)
-        # We model the other rules with modified constants for a coherent system
-        z_moderate = (height * 10) + (speed * 0.5)
-        z_stiff = (height * 5) + (speed * 0.5)
-        
-        numerator = (rule1_strength * z_deep) + (rule2_strength * z_moderate) + (rule3_strength * z_stiff)
-        denominator = rule1_strength + rule2_strength + rule3_strength
-        
-        crispOutput = 0.0
+        numerator = 0.0
+        denominator = 0.0
+
+        step = 0.5
+        y = 0.0
+
+        while y <= 100.0:
+
+            # Output membership functions
+
+            out_stiff = triangular_membership(
+                y, -1, 0, 50
+            )
+
+            out_moderate = triangular_membership(
+                y, 25, 50, 75
+            )
+
+            out_deep = triangular_membership(
+                y, 50, 100, 101
+            )
+
+            # Clip output memberships
+            clipped_stiff = min(r1, out_stiff)
+
+            clipped_moderate = max(
+                min(r2, out_moderate),
+                min(r3, out_moderate),
+                min(r4, out_moderate),
+                min(r5, out_moderate),
+                min(r7, out_moderate)
+            )
+
+            clipped_deep = max(
+                min(r6, out_deep),
+                min(r8, out_deep),
+                min(r9, out_deep)
+            )
+
+            # Aggregate all outputs
+            aggregated_y = max(
+                clipped_stiff,
+                clipped_moderate,
+                clipped_deep
+            )
+
+            numerator += y * aggregated_y * step
+            denominator += aggregated_y * step
+
+            y += step
+
+        crisp_output = 0.0
+
         if denominator > 0:
-            crispOutput = numerator / denominator
-            
-        crispOutput = min(max(crispOutput, 0.0), 100.0) # limit to 0-100% bounds
-        # 100% bend means a full maximum tuck.
-        draw_bar("Knee Bend", crispOutput, 100.0, "%")
+            crisp_output = numerator / denominator
+
+        draw_bar(
+            "Knee Bend",
+            crisp_output,
+            100.0,
+            "%"
+        )
+
+    # -------------------------
+    # SUGENO
+    # -------------------------
+
+    elif logic == "b":
+
+        print("\n=== Sugeno Output ===")
+
+        # Each rule produces a crisp mathematical value.
+
+        z_stiff = (height * 5) + (speed * 0.5)
+
+        z_moderate = (height * 10) + (speed * 0.5)
+
+        z_deep = (height * 15) + (speed * 0.5)
+
+        numerator = (
+            r1 * z_stiff
+            + r2 * z_moderate
+            + r3 * z_moderate
+            + r4 * z_moderate
+            + r5 * z_moderate
+            + r6 * z_deep
+            + r7 * z_moderate
+            + r8 * z_deep
+            + r9 * z_deep
+        )
+
+        denominator = (
+            r1 + r2 + r3 + r4 + r5
+            + r6 + r7 + r8 + r9
+        )
+
+        crisp_output = 0.0
+
+        if denominator > 0:
+            crisp_output = numerator / denominator
+
+        # Keep output within 0-100%
+        crisp_output = min(
+            max(crisp_output, 0.0),
+            100.0
+        )
+
+        draw_bar(
+            "Knee Bend",
+            crisp_output,
+            100.0,
+            "%"
+        )
 
     print("\nPress Enter to exit...")
+
     try:
         input()
     except EOFError:
         pass
+
 
 if __name__ == "__main__":
     main()
