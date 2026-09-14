@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sep14_FuzzyLogic", "Sep14_FuzzyLogic\Sep14_FuzzyLogic.csproj", "{0EAF937F-45F8-45A1-8E55-1F8D69DD4793}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EAF937F-45F8-45A1-8E55-1F8D69DD4793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EAF937F-45F8-45A1-8E55-1F8D69DD4793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EAF937F-45F8-45A1-8E55-1F8D69DD4793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EAF937F-45F8-45A1-8E55-1F8D69DD4793}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
