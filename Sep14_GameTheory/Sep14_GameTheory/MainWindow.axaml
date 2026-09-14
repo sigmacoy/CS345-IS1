@@ -1,0 +1,188 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Sep14_GameTheory.MainWindow"
+        Title="Tic Tac Toe"
+        Width="450"
+        Height="650"
+        MinWidth="400"
+        MinHeight="600"
+        Background="#08090D"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Styles>
+
+        <!-- Main Cell -->
+        <Style Selector="Button.cell">
+            <Setter Property="Background" Value="#11141B" />
+            <Setter Property="Foreground" Value="#F5F7FA" />
+            <Setter Property="FontSize" Value="64" />
+            <Setter Property="FontWeight" Value="Black" />
+
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+
+            <Setter Property="BorderBrush" Value="#252A35" />
+            <Setter Property="BorderThickness" Value="2" />
+
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="CornerRadius" Value="12" />
+        </Style>
+
+        <!-- Cell Hover -->
+        <Style Selector="Button.cell:pointerover">
+            <Setter Property="Background" Value="#191E28" />
+            <Setter Property="BorderBrush" Value="#00D9FF" />
+        </Style>
+
+        <!-- Disabled cells should still look normal -->
+        <Style Selector="Button.cell:disabled">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <!-- Reset Button -->
+        <Style Selector="Button.reset">
+            <Setter Property="Background" Value="#151922" />
+            <Setter Property="Foreground" Value="#00D9FF" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BorderBrush" Value="#00D9FF" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Button.reset:pointerover">
+            <Setter Property="Background" Value="#00D9FF" />
+            <Setter Property="Foreground" Value="#08090D" />
+        </Style>
+
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          Margin="24">
+
+        <!-- HEADER -->
+        <StackPanel Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    Margin="0,5,0,22">
+
+            <TextBlock Text="TIC TAC TOE"
+                       FontSize="30"
+                       FontWeight="Black"
+                       Foreground="#F5F7FA"
+                       HorizontalAlignment="Center"
+                       LetterSpacing="2" />
+
+            <TextBlock Text="MINIMAX • AI OPPONENT"
+                       FontSize="11"
+                       FontWeight="Bold"
+                       Foreground="#687080"
+                       HorizontalAlignment="Center"
+                       Margin="0,4,0,0" />
+
+        </StackPanel>
+
+
+        <!-- GAME AREA -->
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+
+            <!-- STATUS -->
+            <Border Background="#11141B"
+                    BorderBrush="#252A35"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="18,12"
+                    Width="350"
+                    Margin="0,0,0,18">
+
+                <TextBlock x:Name="lblStatus"
+                           Text="Your turn (X)"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="#00D9FF"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+
+            </Border>
+
+
+            <!-- BOARD -->
+            <Border Background="#0D1016"
+                    BorderBrush="#252A35"
+                    BorderThickness="1"
+                    CornerRadius="18"
+                    Padding="8"
+                    Width="350"
+                    Height="350">
+
+                <UniformGrid Rows="3"
+                             Columns="3"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch">
+
+                    <Button x:Name="button1"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button2"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button3"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button4"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button5"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button6"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button7"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button8"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                    <Button x:Name="button9"
+                            Classes="cell"
+                            Click="Cell_Click" />
+
+                </UniformGrid>
+
+            </Border>
+
+        </StackPanel>
+
+
+        <!-- RESET -->
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Margin="0,10,0,0">
+
+            <Button x:Name="btnReset"
+                    Classes="reset"
+                    Content="NEW GAME"
+                    Width="180"
+                    Height="48"
+                    Click="BtnReset_Click" />
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>
