@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="Sep30_ImageProcessing.MainWindow"
+        Title="Sep30 ImageProcessing" Width="1000" Height="700">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="Open" Click="OpenFile_Click"/>
+                    <MenuItem Header="Save" Click="SaveFile_Click"/>
+                </MenuItem>
+                <MenuItem Header="_DIP">
+                    <MenuItem Header="Pixel copy" Click="PixelCopy_Click"/>
+                    <MenuItem Header="Greyscaling" Click="Greyscaling_Click"/>
+                    <MenuItem Header="Inversion" Click="Inversion_Click"/>
+                    <MenuItem Header="Mirror Horiz" Click="MirrorHoriz_Click"/>
+                    <MenuItem Header="Mirror Vert" Click="MirrorVert_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Spacing="10" Margin="10">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button Content="On" Click="OnCamera_Click"/>
+                    <Button Content="Off" Click="OffCamera_Click"/>
+                    <Button Content="VIDEO Greyscale" Click="VideoGreyscale_Click"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Label Content="Contrast:" VerticalAlignment="Center"/>
+                    <Slider Name="ContrastSlider" Minimum="1" Maximum="100" Value="1" Width="150" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
+                    
+                    <Label Content="Brightness:" VerticalAlignment="Center"/>
+                    <Slider Name="BrightnessSlider" Minimum="-255" Maximum="255" Value="50" Width="150" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
+
+                    <Label Content="Rotation:" VerticalAlignment="Center"/>
+                    <Slider Name="RotationSlider" Minimum="0" Maximum="360" Value="1" Width="150" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
+                </StackPanel>
+            </StackPanel>
+
+            <Grid ColumnDefinitions="*,*" Margin="10">
+                <Image Grid.Column="0" Name="ImageLoaded" Stretch="Uniform" Margin="5"/>
+                <Image Grid.Column="1" Name="ImageProcessed" Stretch="Uniform" Margin="5"/>
+            </Grid>
+        </DockPanel>
+
+        <!-- Device Selector Overlay -->
+        <Border Name="DeviceSelectorPanel" IsVisible="False" Background="{DynamicResource SystemRegionBrush}" BorderBrush="{DynamicResource SystemControlForegroundBaseHighBrush}" BorderThickness="1" Padding="20" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5" ZIndex="10">
+            <StackPanel Spacing="15">
+                <TextBlock Text="Select a video device:" FontWeight="Bold"/>
+                <ComboBox Name="DeviceComboBox" SelectedIndex="0" Width="200">
+                    <ComboBoxItem>Camera 0</ComboBoxItem>
+                    <ComboBoxItem>Camera 1</ComboBoxItem>
+                    <ComboBoxItem>Camera 2</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Name="DeviceErrorText" Foreground="Red" IsVisible="False" TextWrapping="Wrap" MaxWidth="200"/>
+                <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                    <Button Content="Ok" Click="DeviceOk_Click"/>
+                    <Button Content="Apply" Click="DeviceApply_Click"/>
+                    <Button Content="Cancel" Click="DeviceCancel_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

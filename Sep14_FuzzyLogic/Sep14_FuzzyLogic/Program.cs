@@ -10,7 +10,7 @@ namespace FuzzyLogic
             char input = Console.ReadKey().KeyChar;
             Console.WriteLine();
 
-            if (input == 'a')
+            if (input == 'a') // Mamdani
             {
                 Console.WriteLine("=== True Mamdani Fuzzy Logic Controller Demo (.NET Framework) ===");
                 // Define crisp inputs
@@ -80,7 +80,7 @@ namespace FuzzyLogic
                 Console.WriteLine("\n--- Mamdani Defuzzification Result (Centroid) ---");
                 Console.WriteLine($"Calculated Crisp Fan Speed Output: {crispOutput:F2}%");
             }
-            else if (input == 'b')
+            else if (input == 'b') // Seguno
             {
                 Console.WriteLine("=== Fuzzy Logic Controller Demo (.NET Framework) ===");
                 // Define crisp inputs
