@@ -2,8 +2,334 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1360" d:DesignHeight="960"
         x:Class="DIP_Oct7.MainWindow"
-        Title="DIP_Oct7">
-    Welcome to Avalonia!
+        Title="Philippine Peso Coin Counter - DIP (Digital Image Processing)"
+        Width="1360" Height="960"
+        WindowStartupLocation="CenterScreen">
+
+    <DockPanel LastChildFill="True" Background="#0F111A">
+
+        <!-- Top Control Bar -->
+        <Border DockPanel.Dock="Top" Background="#1A1C29" BorderBrush="#2D3148" BorderThickness="0,0,0,1" Padding="16,10">
+            <StackPanel Spacing="10">
+
+                <!-- Row 1: Main Action Buttons -->
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <!-- Load Image Button -->
+                    <Button x:Name="BtnLoadImage"
+                            Click="BtnLoadImage_Click"
+                            Margin="5"
+                            Padding="16,10"
+                            Background="#3B5BDB"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="13"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="📂" FontSize="14"/>
+                            <TextBlock Text="Load Image"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Count Total Denomination Button -->
+                    <Button x:Name="BtnCountCoins"
+                            Click="BtnCountCoins_Click"
+                            Margin="5"
+                            Padding="16,10"
+                            Background="#2B8A3E"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="13"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="💰" FontSize="14"/>
+                            <TextBlock Text="Count the total denomination of the coins"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Show Rectangular Shape & Nth Count Button -->
+                    <Button x:Name="BtnShowRectangles"
+                            Click="BtnShowRectangles_Click"
+                            Margin="5"
+                            Padding="16,10"
+                            Background="#D9480F"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="13"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="🔢" FontSize="14"/>
+                            <TextBlock Text="Show Rectangles &amp; Nth Count (Top-Left to Bottom-Right)"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Show All / Reset Highlight -->
+                    <Button x:Name="BtnShowAll"
+                            Click="BtnShowAll_Click"
+                            Margin="5"
+                            Padding="14,10"
+                            Background="#495057"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            FontSize="13"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="👁️" FontSize="14"/>
+                            <TextBlock Text="Show All Coins"/>
+                        </StackPanel>
+                    </Button>
+
+                </WrapPanel>
+
+                <!-- Row 2: Specific Denomination Highlight Buttons -->
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <TextBlock Text="Filter Denominations:"
+                               Foreground="#A5B4FC"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               FontSize="13"
+                               Margin="0,0,10,0"/>
+
+                    <!-- 5 cents Button -->
+                    <Button x:Name="Btn5Centavos"
+                            Click="Btn5Centavos_Click"
+                            Margin="4"
+                            Padding="14,8"
+                            Background="#E64980"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="12"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <TextBlock Text="5 cents"/>
+                    </Button>
+
+                    <!-- 10 cents Button -->
+                    <Button x:Name="Btn10Centavos"
+                            Click="Btn10Centavos_Click"
+                            Margin="4"
+                            Padding="14,8"
+                            Background="#F76707"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="12"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <TextBlock Text="10 cents"/>
+                    </Button>
+
+                    <!-- 25 cents Button -->
+                    <Button x:Name="Btn25Centavos"
+                            Click="Btn25Centavos_Click"
+                            Margin="4"
+                            Padding="14,8"
+                            Background="#AE3EC9"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="12"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <TextBlock Text="25 cents"/>
+                    </Button>
+
+                    <!-- 1 pesos Button -->
+                    <Button x:Name="Btn1Peso"
+                            Click="Btn1Peso_Click"
+                            Margin="4"
+                            Padding="14,8"
+                            Background="#1C7ED6"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="12"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <TextBlock Text="1 pesos"/>
+                    </Button>
+
+                    <!-- 5 pesos Button -->
+                    <Button x:Name="Btn5Pesos"
+                            Click="Btn5Pesos_Click"
+                            Margin="4"
+                            Padding="14,8"
+                            Background="#2F9E44"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="12"
+                            CornerRadius="6"
+                            Cursor="Hand">
+                        <TextBlock Text="5 pesos"/>
+                    </Button>
+
+                </WrapPanel>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Bottom Status Bar -->
+        <Border DockPanel.Dock="Bottom" Background="#141622" BorderBrush="#2D3148" BorderThickness="0,1,0,0" Padding="16,8">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           x:Name="TxtStatus"
+                           Text="Ready. Click 'Count the total denomination of the coins' or 'Show Rectangles &amp; Nth Count'."
+                           Foreground="#94A3B8"
+                           FontSize="12"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Column="1"
+                           x:Name="TxtActiveMode"
+                           Text="Mode: All Coins"
+                           Foreground="#38BDF8"
+                           FontWeight="SemiBold"
+                           FontSize="12"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid ColumnDefinitions="*,340">
+
+            <!-- Left: Scrollable Image Viewport with Overlay Canvas -->
+            <Border Grid.Column="0" Background="#0A0B10" ClipToBounds="True">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="ViewportGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                        <!-- Loaded Coin Image -->
+                        <Image x:Name="ImgDisplay"
+                               Stretch="None"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"/>
+
+                        <!-- Drawing Canvas for Rectangles & Nth Count badges -->
+                        <Canvas x:Name="OverlayCanvas"
+                                Background="Transparent"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"/>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Right: Results & Statistics Panel -->
+            <Border Grid.Column="1" Background="#161824" BorderBrush="#2D3148" BorderThickness="1,0,0,0" Padding="18">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="14">
+
+                        <TextBlock Text="📊 Denomination Summary"
+                                   Foreground="White"
+                                   FontSize="17"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"/>
+
+                        <Border Height="1" Background="#2D3148"/>
+
+                        <!-- 5 Cents Card -->
+                        <Border Background="#241424" BorderBrush="#E64980" BorderThickness="1" CornerRadius="8" Padding="12">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="#E64980" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="5 cents (5¢)" Foreground="#FF79C6" FontWeight="Bold" FontSize="13"/>
+                                    <TextBlock x:Name="TxtCount5Centavos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" x:Name="TxtValue5Centavos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 10 Cents Card -->
+                        <Border Background="#251A14" BorderBrush="#F76707" BorderThickness="1" CornerRadius="8" Padding="12">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="#F76707" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="10 cents (10¢)" Foreground="#FFB86C" FontWeight="Bold" FontSize="13"/>
+                                    <TextBlock x:Name="TxtCount10Centavos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" x:Name="TxtValue10Centavos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 25 Cents Card -->
+                        <Border Background="#21152B" BorderBrush="#AE3EC9" BorderThickness="1" CornerRadius="8" Padding="12">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="#AE3EC9" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="25 cents (25¢)" Foreground="#BD93F9" FontWeight="Bold" FontSize="13"/>
+                                    <TextBlock x:Name="TxtCount25Centavos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" x:Name="TxtValue25Centavos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 1 Peso Card -->
+                        <Border Background="#121F2D" BorderBrush="#1C7ED6" BorderThickness="1" CornerRadius="8" Padding="12">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="#1C7ED6" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="1 peso (₱1)" Foreground="#8BE9FD" FontWeight="Bold" FontSize="13"/>
+                                    <TextBlock x:Name="TxtCount1Peso" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" x:Name="TxtValue1Peso" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 5 Pesos Card -->
+                        <Border Background="#12271A" BorderBrush="#2F9E44" BorderThickness="1" CornerRadius="8" Padding="12">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="#2F9E44" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="5 pesos (₱5)" Foreground="#50FA7B" FontWeight="Bold" FontSize="13"/>
+                                    <TextBlock x:Name="TxtCount5Pesos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" x:Name="TxtValue5Pesos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Height="1" Background="#2D3148"/>
+
+                        <!-- Total Denomination Card -->
+                        <Border Background="#152818" BorderBrush="#40C057" BorderThickness="2" CornerRadius="10" Padding="16">
+                            <StackPanel Spacing="6" HorizontalAlignment="Center">
+                                <TextBlock Text="TOTAL DENOMINATION"
+                                           Foreground="#86EFAC"
+                                           FontSize="11"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"
+                                           LetterSpacing="1"/>
+
+                                <TextBlock x:Name="TxtTotalAmount"
+                                           Text="₱ 0.00"
+                                           Foreground="#FACC15"
+                                           FontSize="32"
+                                           FontWeight="Bold"
+                                           HorizontalAlignment="Center"/>
+
+                                <TextBlock x:Name="TxtTotalCount"
+                                           Text="(0 coins detected)"
+                                           Foreground="#94A3B8"
+                                           FontSize="12"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Algorithm & Detection Info -->
+                        <Border Background="#10121C" CornerRadius="8" Padding="12" BorderBrush="#25283D" BorderThickness="1">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="ℹ️ DIP Algorithm Details" Foreground="#94A3B8" FontSize="11" FontWeight="Bold"/>
+                                <TextBlock Text="• Otsu Adaptive Binarization" Foreground="#64748B" FontSize="10"/>
+                                <TextBlock Text="• 4-Connected Component BFS" Foreground="#64748B" FontSize="10"/>
+                                <TextBlock Text="• Centroid Moments &amp; Area" Foreground="#64748B" FontSize="10"/>
+                                <TextBlock Text="• Central Hole Detection (5¢)" Foreground="#64748B" FontSize="10"/>
+                                <TextBlock Text="• Top-Left to Bottom-Right Row Sort" Foreground="#64748B" FontSize="10"/>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+        </Grid>
+    </DockPanel>
 </Window>
