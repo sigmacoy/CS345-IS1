@@ -20,6 +20,11 @@ public partial class MainWindow : Window
     private CoinDenomination? _activeFilter;
     private bool _showNthOnly;
 
+    private double _zoomFactor = 1.0;
+    private const double MinZoom = 0.25;
+    private const double MaxZoom = 4.0;
+    private const double ZoomStep = 0.15;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -94,6 +99,7 @@ public partial class MainWindow : Window
             OverlayCanvas.Children.Clear();
 
             ResetSummaryCards();
+            ApplyZoom(1.0);
             TxtStatus.Text = $"Loaded '{Path.GetFileName(filePath)}' ({w}x{h} px). Click 'Count the total denomination of the coins' to process.";
             TxtActiveMode.Text = "Mode: Image Loaded";
         }
@@ -164,6 +170,23 @@ public partial class MainWindow : Window
         _showNthOnly = false;
         TxtActiveMode.Text = "Mode: All Coins";
         RenderOverlay();
+    }
+
+    private void BtnZoomIn_Click(object? sender, RoutedEventArgs e) => ApplyZoom(_zoomFactor + ZoomStep);
+    private void BtnZoomOut_Click(object? sender, RoutedEventArgs e) => ApplyZoom(_zoomFactor - ZoomStep);
+    private void BtnZoomReset_Click(object? sender, RoutedEventArgs e) => ApplyZoom(1.0);
+
+    private void ApplyZoom(double newZoom)
+    {
+        _zoomFactor = Math.Clamp(newZoom, MinZoom, MaxZoom);
+        if (ViewportTransform != null)
+        {
+            ViewportTransform.LayoutTransform = new ScaleTransform(_zoomFactor, _zoomFactor);
+        }
+        if (TxtZoomLevel != null)
+        {
+            TxtZoomLevel.Text = $"{Math.Round(_zoomFactor * 100)}%";
+        }
     }
 
     private void Btn5Centavos_Click(object? sender, RoutedEventArgs e) => FilterByDenomination(CoinDenomination.Centavo5, "5 cents");

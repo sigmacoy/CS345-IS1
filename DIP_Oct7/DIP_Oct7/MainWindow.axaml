@@ -117,6 +117,78 @@
                         <TextBlock Text="Show All"/>
                     </Button>
 
+                    <!-- Zoom Controls: Zoom: + - style -->
+                    <Border Background="#202227"
+                            BorderBrush="#31343E"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Padding="8,3"
+                            Margin="4,0,0,0">
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <TextBlock Text="Zoom:"
+                                       FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                       Foreground="#858994"
+                                       FontSize="12"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+
+                            <Button x:Name="BtnZoomIn"
+                                    Click="BtnZoomIn_Click"
+                                    Width="26" Height="26"
+                                    Padding="0"
+                                    Background="#272A32"
+                                    Foreground="#D6DAE3"
+                                    FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                    FontWeight="SemiBold"
+                                    FontSize="13"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    BorderBrush="#3D414D"
+                                    BorderThickness="1"
+                                    CornerRadius="3"
+                                    Cursor="Hand"
+                                    ToolTip.Tip="Zoom In">
+                                <TextBlock Text="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Button>
+
+                            <Button x:Name="BtnZoomOut"
+                                    Click="BtnZoomOut_Click"
+                                    Width="26" Height="26"
+                                    Padding="0"
+                                    Background="#272A32"
+                                    Foreground="#D6DAE3"
+                                    FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                    FontWeight="SemiBold"
+                                    FontSize="13"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    BorderBrush="#3D414D"
+                                    BorderThickness="1"
+                                    CornerRadius="3"
+                                    Cursor="Hand"
+                                    ToolTip.Tip="Zoom Out">
+                                <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Button>
+
+                            <Button x:Name="BtnZoomReset"
+                                    Click="BtnZoomReset_Click"
+                                    Padding="6,2"
+                                    Height="26"
+                                    Background="#202227"
+                                    Foreground="#8E93A0"
+                                    FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                    FontSize="11"
+                                    FontWeight="Medium"
+                                    BorderBrush="#2D3039"
+                                    BorderThickness="1"
+                                    CornerRadius="3"
+                                    Cursor="Hand"
+                                    ToolTip.Tip="Reset Zoom">
+                                <TextBlock x:Name="TxtZoomLevel" Text="100%" VerticalAlignment="Center"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
                 </WrapPanel>
 
                 <!-- Row 2: Denomination Filter Buttons -->
@@ -230,17 +302,22 @@
             <!-- Left: Viewport Area -->
             <Border Grid.Column="0" Background="#0F1012" ClipToBounds="True">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="ViewportGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24">
-                        <Image x:Name="ImgDisplay"
-                               Stretch="None"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"/>
+                    <LayoutTransformControl x:Name="ViewportTransform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24">
+                        <LayoutTransformControl.LayoutTransform>
+                            <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                        </LayoutTransformControl.LayoutTransform>
+                        <Grid x:Name="ViewportGrid" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image x:Name="ImgDisplay"
+                                   Stretch="None"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"/>
 
-                        <Canvas x:Name="OverlayCanvas"
-                                Background="Transparent"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"/>
-                    </Grid>
+                            <Canvas x:Name="OverlayCanvas"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"/>
+                        </Grid>
+                    </LayoutTransformControl>
                 </ScrollViewer>
             </Border>
 
@@ -262,7 +339,7 @@
                         <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
                             <Grid ColumnDefinitions="*,Auto">
                                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                    <TextBlock Text="5 cents (5¢)"
+                                    <TextBlock Text="5 cents (5c)"
                                                FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
                                                Foreground="#C5C9D3"
                                                FontWeight="SemiBold"
@@ -289,7 +366,7 @@
                         <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
                             <Grid ColumnDefinitions="*,Auto">
                                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                    <TextBlock Text="10 cents (10¢)"
+                                    <TextBlock Text="10 cents (10c)"
                                                FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
                                                Foreground="#C5C9D3"
                                                FontWeight="SemiBold"
@@ -316,7 +393,7 @@
                         <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
                             <Grid ColumnDefinitions="*,Auto">
                                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                    <TextBlock Text="25 cents (25¢)"
+                                    <TextBlock Text="25 cents (25c)"
                                                FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
                                                Foreground="#C5C9D3"
                                                FontWeight="SemiBold"
