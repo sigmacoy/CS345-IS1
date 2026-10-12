@@ -212,8 +212,8 @@ public partial class MainWindow : Window
         int count = _detectionResult.Coins.Count(c => c.Denomination == denomination);
         double totalVal = count * CoinDetector.GetDenominationValue(denomination);
 
-        TxtActiveMode.Text = $"Filter: {name}";
-        TxtStatus.Text = $"Filtered {name}: {count} coins identified (Subtotal: PHP {totalVal:F2}).";
+        TxtActiveMode.Text = $"Filter: {name} ({count} coins)";
+        TxtStatus.Text = $"Filtered {name}: {count} coins counted from top-left to bottom-right (Subtotal: PHP {totalVal:F2}).";
         RenderOverlay();
     }
 
@@ -266,18 +266,50 @@ public partial class MainWindow : Window
         }
 
         // Muted color palette: restrained navy accents and neutral steel tones
-        var strokeBrush = new SolidColorBrush(Color.Parse("#5B728D"));
-        var fillBrush = new SolidColorBrush(Color.FromArgb(28, 64, 85, 112));
-        var badgeBgBrush = new SolidColorBrush(Color.Parse("#263140"));
+        var defaultStrokeBrush = new SolidColorBrush(Color.Parse("#5B728D"));
+        var defaultFillBrush = new SolidColorBrush(Color.FromArgb(28, 64, 85, 112));
+        var defaultBadgeBg = new SolidColorBrush(Color.Parse("#263140"));
         var badgeTextBrush = new SolidColorBrush(Color.Parse("#EDEFF2"));
 
-        foreach (var coin in coinsToDisplay)
+        // Refined accent for the last coin displaying the denomination total count
+        var lastStrokeBrush = new SolidColorBrush(Color.Parse("#7E97B8"));
+        var lastFillBrush = new SolidColorBrush(Color.FromArgb(42, 75, 102, 135));
+        var lastBadgeBg = new SolidColorBrush(Color.Parse("#314357"));
+
+        int totalFiltered = coinsToDisplay.Count;
+
+        for (int i = 0; i < coinsToDisplay.Count; i++)
         {
+            var coin = coinsToDisplay[i];
+            int denomIndex = i + 1;
+            bool isLastInFilter = _activeFilter.HasValue && (denomIndex == totalFiltered);
+
+            string labelText;
+            if (_activeFilter.HasValue)
+            {
+                labelText = isLastInFilter
+                    ? $"#{denomIndex} (Total: {totalFiltered})"
+                    : $"#{denomIndex}";
+            }
+            else if (_showNthOnly)
+            {
+                labelText = $"#{coin.Index}";
+            }
+            else
+            {
+                labelText = $"{coin.DisplayName} (#{coin.Index})";
+            }
+
+            var strokeBrush = isLastInFilter ? lastStrokeBrush : defaultStrokeBrush;
+            var fillBrush = isLastInFilter ? lastFillBrush : defaultFillBrush;
+            var badgeBg = isLastInFilter ? lastBadgeBg : defaultBadgeBg;
+            double strokeThickness = isLastInFilter ? 2.0 : 1.5;
+
             // 1. Rectangular boundary box
             var rectBorder = new Border
             {
                 BorderBrush = strokeBrush,
-                BorderThickness = new Thickness(1.5),
+                BorderThickness = new Thickness(strokeThickness),
                 Background = fillBrush,
                 Width = coin.Width + 6,
                 Height = coin.Height + 6,
@@ -289,19 +321,17 @@ public partial class MainWindow : Window
             OverlayCanvas.Children.Add(rectBorder);
 
             // 2. Nth count or denomination label badge
-            string labelText = _showNthOnly
-                ? $"#{coin.Index}"
-                : $"{coin.DisplayName} (#{coin.Index})";
-
             double badgeTop = coin.MinY - 18;
             if (badgeTop < 0)
             {
                 badgeTop = coin.MinY + 3;
             }
 
+            double badgeLeft = Math.Max(0, Math.Min(coin.MinX, OverlayCanvas.Width - 110));
+
             var badge = new Border
             {
-                Background = badgeBgBrush,
+                Background = badgeBg,
                 BorderBrush = strokeBrush,
                 BorderThickness = new Thickness(1),
                 CornerRadius = new CornerRadius(2),
@@ -313,9 +343,9 @@ public partial class MainWindow : Window
                     FontFamily = SansFontFamily,
                     Foreground = badgeTextBrush,
                     FontSize = 10,
-                    FontWeight = FontWeight.Medium
+                    FontWeight = isLastInFilter ? FontWeight.Bold : FontWeight.Medium
                 },
-                [Canvas.LeftProperty] = (double)coin.MinX,
+                [Canvas.LeftProperty] = badgeLeft,
                 [Canvas.TopProperty] = badgeTop
             };
             OverlayCanvas.Children.Add(badge);
