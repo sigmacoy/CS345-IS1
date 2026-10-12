@@ -4,165 +4,207 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1360" d:DesignHeight="960"
         x:Class="DIP_Oct7.MainWindow"
-        Title="Philippine Peso Coin Counter - DIP (Digital Image Processing)"
+        Title="Philippine Peso Coin Counter - DIP"
         Width="1360" Height="960"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif">
 
-    <DockPanel LastChildFill="True" Background="#0F111A">
+    <DockPanel LastChildFill="True" Background="#141517">
 
-        <!-- Top Control Bar -->
-        <Border DockPanel.Dock="Top" Background="#1A1C29" BorderBrush="#2D3148" BorderThickness="0,0,0,1" Padding="16,10">
-            <StackPanel Spacing="10">
+        <!-- Top Header & Control Toolbar -->
+        <Border DockPanel.Dock="Top" Background="#1B1C20" BorderBrush="#2C2E35" BorderThickness="0,0,0,1" Padding="18,14">
+            <StackPanel Spacing="12">
 
-                <!-- Row 1: Main Action Buttons -->
-                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <!-- Title & Subtitle Header -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Philippine Peso Coin Counter"
+                                   FontFamily="'Playfair Display', 'Libre Baskerville', Georgia, 'Times New Roman', serif"
+                                   FontSize="22"
+                                   FontWeight="SemiBold"
+                                   Foreground="#F0F2F5"
+                                   LetterSpacing="0.3"/>
+                        <TextBlock Text="Digital image processing and denomination analysis"
+                                   FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                   FontSize="12"
+                                   Foreground="#8A8E98"
+                                   Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <!-- Active Filter / Mode Pill -->
+                    <Border Grid.Column="1"
+                            Background="#24262C"
+                            BorderBrush="#353842"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Padding="12,6"
+                            VerticalAlignment="Center">
+                        <TextBlock x:Name="TxtActiveMode"
+                                   Text="Mode: All Coins"
+                                   FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                   FontSize="12"
+                                   FontWeight="Medium"
+                                   Foreground="#B0B5C0"/>
+                    </Border>
+                </Grid>
+
+                <Border Height="1" Background="#26282E"/>
+
+                <!-- Row 1: Primary Action Buttons -->
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
                     <!-- Load Image Button -->
                     <Button x:Name="BtnLoadImage"
                             Click="BtnLoadImage_Click"
-                            Margin="5"
-                            Padding="16,10"
-                            Background="#3B5BDB"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            FontSize="13"
-                            CornerRadius="6"
+                            Margin="0,0,8,0"
+                            Padding="16,8"
+                            Background="#344354"
+                            Foreground="#F0F2F5"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="SemiBold"
+                            FontSize="12"
+                            CornerRadius="4"
                             Cursor="Hand">
-                        <StackPanel Orientation="Horizontal" Spacing="6">
-                            <TextBlock Text="📂" FontSize="14"/>
-                            <TextBlock Text="Load Image"/>
-                        </StackPanel>
+                        <TextBlock Text="Load Image"/>
                     </Button>
 
                     <!-- Count Total Denomination Button -->
                     <Button x:Name="BtnCountCoins"
                             Click="BtnCountCoins_Click"
-                            Margin="5"
-                            Padding="16,10"
-                            Background="#2B8A3E"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            FontSize="13"
-                            CornerRadius="6"
+                            Margin="0,0,8,0"
+                            Padding="16,8"
+                            Background="#2B3747"
+                            Foreground="#F0F2F5"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="SemiBold"
+                            FontSize="12"
+                            CornerRadius="4"
                             Cursor="Hand">
-                        <StackPanel Orientation="Horizontal" Spacing="6">
-                            <TextBlock Text="💰" FontSize="14"/>
-                            <TextBlock Text="Count the total denomination of the coins"/>
-                        </StackPanel>
+                        <TextBlock Text="Count the total denomination of the coins"/>
                     </Button>
 
                     <!-- Show Rectangular Shape & Nth Count Button -->
                     <Button x:Name="BtnShowRectangles"
                             Click="BtnShowRectangles_Click"
-                            Margin="5"
-                            Padding="16,10"
-                            Background="#D9480F"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            FontSize="13"
-                            CornerRadius="6"
+                            Margin="0,0,8,0"
+                            Padding="16,8"
+                            Background="#262E3B"
+                            Foreground="#E2E6ED"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="SemiBold"
+                            FontSize="12"
+                            BorderBrush="#3D4A5E"
+                            BorderThickness="1"
+                            CornerRadius="4"
                             Cursor="Hand">
-                        <StackPanel Orientation="Horizontal" Spacing="6">
-                            <TextBlock Text="🔢" FontSize="14"/>
-                            <TextBlock Text="Show Rectangles &amp; Nth Count (Top-Left to Bottom-Right)"/>
-                        </StackPanel>
+                        <TextBlock Text="Show Rectangles and Nth Count (Top-Left to Bottom-Right)"/>
                     </Button>
 
-                    <!-- Show All / Reset Highlight -->
+                    <!-- Show All Coins Button -->
                     <Button x:Name="BtnShowAll"
                             Click="BtnShowAll_Click"
-                            Margin="5"
-                            Padding="14,10"
-                            Background="#495057"
-                            Foreground="White"
-                            FontWeight="SemiBold"
-                            FontSize="13"
-                            CornerRadius="6"
+                            Margin="0,0,8,0"
+                            Padding="14,8"
+                            Background="#24262C"
+                            Foreground="#A6ACB8"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="Medium"
+                            FontSize="12"
+                            BorderBrush="#333640"
+                            BorderThickness="1"
+                            CornerRadius="4"
                             Cursor="Hand">
-                        <StackPanel Orientation="Horizontal" Spacing="6">
-                            <TextBlock Text="👁️" FontSize="14"/>
-                            <TextBlock Text="Show All Coins"/>
-                        </StackPanel>
+                        <TextBlock Text="Show All"/>
                     </Button>
 
                 </WrapPanel>
 
-                <!-- Row 2: Specific Denomination Highlight Buttons -->
-                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <!-- Row 2: Denomination Filter Buttons -->
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
-                    <TextBlock Text="Filter Denominations:"
-                               Foreground="#A5B4FC"
+                    <TextBlock Text="Filter by denomination:"
+                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                               Foreground="#858994"
                                VerticalAlignment="Center"
-                               FontWeight="SemiBold"
-                               FontSize="13"
+                               FontSize="12"
                                Margin="0,0,10,0"/>
 
-                    <!-- 5 cents Button -->
                     <Button x:Name="Btn5Centavos"
                             Click="Btn5Centavos_Click"
-                            Margin="4"
-                            Padding="14,8"
-                            Background="#E64980"
-                            Foreground="White"
-                            FontWeight="Bold"
+                            Margin="0,0,6,0"
+                            Padding="12,6"
+                            Background="#222429"
+                            Foreground="#C8CCD4"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="Medium"
                             FontSize="12"
-                            CornerRadius="6"
+                            BorderBrush="#353842"
+                            BorderThickness="1"
+                            CornerRadius="4"
                             Cursor="Hand">
                         <TextBlock Text="5 cents"/>
                     </Button>
 
-                    <!-- 10 cents Button -->
                     <Button x:Name="Btn10Centavos"
                             Click="Btn10Centavos_Click"
-                            Margin="4"
-                            Padding="14,8"
-                            Background="#F76707"
-                            Foreground="White"
-                            FontWeight="Bold"
+                            Margin="0,0,6,0"
+                            Padding="12,6"
+                            Background="#222429"
+                            Foreground="#C8CCD4"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="Medium"
                             FontSize="12"
-                            CornerRadius="6"
+                            BorderBrush="#353842"
+                            BorderThickness="1"
+                            CornerRadius="4"
                             Cursor="Hand">
                         <TextBlock Text="10 cents"/>
                     </Button>
 
-                    <!-- 25 cents Button -->
                     <Button x:Name="Btn25Centavos"
                             Click="Btn25Centavos_Click"
-                            Margin="4"
-                            Padding="14,8"
-                            Background="#AE3EC9"
-                            Foreground="White"
-                            FontWeight="Bold"
+                            Margin="0,0,6,0"
+                            Padding="12,6"
+                            Background="#222429"
+                            Foreground="#C8CCD4"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="Medium"
                             FontSize="12"
-                            CornerRadius="6"
+                            BorderBrush="#353842"
+                            BorderThickness="1"
+                            CornerRadius="4"
                             Cursor="Hand">
                         <TextBlock Text="25 cents"/>
                     </Button>
 
-                    <!-- 1 pesos Button -->
                     <Button x:Name="Btn1Peso"
                             Click="Btn1Peso_Click"
-                            Margin="4"
-                            Padding="14,8"
-                            Background="#1C7ED6"
-                            Foreground="White"
-                            FontWeight="Bold"
+                            Margin="0,0,6,0"
+                            Padding="12,6"
+                            Background="#222429"
+                            Foreground="#C8CCD4"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="Medium"
                             FontSize="12"
-                            CornerRadius="6"
+                            BorderBrush="#353842"
+                            BorderThickness="1"
+                            CornerRadius="4"
                             Cursor="Hand">
                         <TextBlock Text="1 pesos"/>
                     </Button>
 
-                    <!-- 5 pesos Button -->
                     <Button x:Name="Btn5Pesos"
                             Click="Btn5Pesos_Click"
-                            Margin="4"
-                            Padding="14,8"
-                            Background="#2F9E44"
-                            Foreground="White"
-                            FontWeight="Bold"
+                            Margin="0,0,6,0"
+                            Padding="12,6"
+                            Background="#222429"
+                            Foreground="#C8CCD4"
+                            FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                            FontWeight="Medium"
                             FontSize="12"
-                            CornerRadius="6"
+                            BorderBrush="#353842"
+                            BorderThickness="1"
+                            CornerRadius="4"
                             Cursor="Hand">
                         <TextBlock Text="5 pesos"/>
                     </Button>
@@ -173,39 +215,27 @@
         </Border>
 
         <!-- Bottom Status Bar -->
-        <Border DockPanel.Dock="Bottom" Background="#141622" BorderBrush="#2D3148" BorderThickness="0,1,0,0" Padding="16,8">
-            <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Grid.Column="0"
-                           x:Name="TxtStatus"
-                           Text="Ready. Click 'Count the total denomination of the coins' or 'Show Rectangles &amp; Nth Count'."
-                           Foreground="#94A3B8"
-                           FontSize="12"
-                           VerticalAlignment="Center"/>
-
-                <TextBlock Grid.Column="1"
-                           x:Name="TxtActiveMode"
-                           Text="Mode: All Coins"
-                           Foreground="#38BDF8"
-                           FontWeight="SemiBold"
-                           FontSize="12"
-                           VerticalAlignment="Center"/>
-            </Grid>
+        <Border DockPanel.Dock="Bottom" Background="#17181B" BorderBrush="#26282E" BorderThickness="0,1,0,0" Padding="18,8">
+            <TextBlock x:Name="TxtStatus"
+                       Text="Ready."
+                       FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                       Foreground="#858994"
+                       FontSize="12"
+                       VerticalAlignment="Center"/>
         </Border>
 
-        <!-- Main Content Area -->
-        <Grid ColumnDefinitions="*,340">
+        <!-- Main Workspace -->
+        <Grid ColumnDefinitions="*,330">
 
-            <!-- Left: Scrollable Image Viewport with Overlay Canvas -->
-            <Border Grid.Column="0" Background="#0A0B10" ClipToBounds="True">
+            <!-- Left: Viewport Area -->
+            <Border Grid.Column="0" Background="#0F1012" ClipToBounds="True">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="ViewportGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
-                        <!-- Loaded Coin Image -->
+                    <Grid x:Name="ViewportGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24">
                         <Image x:Name="ImgDisplay"
                                Stretch="None"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"/>
 
-                        <!-- Drawing Canvas for Rectangles & Nth Count badges -->
                         <Canvas x:Name="OverlayCanvas"
                                 Background="Transparent"
                                 HorizontalAlignment="Left"
@@ -214,115 +244,198 @@
                 </ScrollViewer>
             </Border>
 
-            <!-- Right: Results & Statistics Panel -->
-            <Border Grid.Column="1" Background="#161824" BorderBrush="#2D3148" BorderThickness="1,0,0,0" Padding="18">
+            <!-- Right: Summary Dashboard -->
+            <Border Grid.Column="1" Background="#1A1B1F" BorderBrush="#2A2C32" BorderThickness="1,0,0,0" Padding="20">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Spacing="14">
 
-                        <TextBlock Text="📊 Denomination Summary"
-                                   Foreground="White"
-                                   FontSize="17"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Denomination Summary"
+                                   FontFamily="'Playfair Display', 'Libre Baskerville', Georgia, 'Times New Roman', serif"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   Foreground="#F0F2F5"
+                                   HorizontalAlignment="Left"/>
 
-                        <Border Height="1" Background="#2D3148"/>
+                        <Border Height="1" Background="#26282E"/>
 
                         <!-- 5 Cents Card -->
-                        <Border Background="#241424" BorderBrush="#E64980" BorderThickness="1" CornerRadius="8" Padding="12">
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Border Grid.Column="0" Background="#E64980" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="5 cents (5¢)" Foreground="#FF79C6" FontWeight="Bold" FontSize="13"/>
-                                    <TextBlock x:Name="TxtCount5Centavos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                        <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="5 cents (5¢)"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#C5C9D3"
+                                               FontWeight="SemiBold"
+                                               FontSize="12"/>
+                                    <TextBlock x:Name="TxtCount5Centavos"
+                                               Text="0 coins"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#7E838F"
+                                               FontSize="11"
+                                               Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" x:Name="TxtValue5Centavos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TxtValue5Centavos"
+                                           Text="PHP 0.00"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#E0E3EB"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
 
                         <!-- 10 Cents Card -->
-                        <Border Background="#251A14" BorderBrush="#F76707" BorderThickness="1" CornerRadius="8" Padding="12">
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Border Grid.Column="0" Background="#F76707" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="10 cents (10¢)" Foreground="#FFB86C" FontWeight="Bold" FontSize="13"/>
-                                    <TextBlock x:Name="TxtCount10Centavos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                        <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="10 cents (10¢)"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#C5C9D3"
+                                               FontWeight="SemiBold"
+                                               FontSize="12"/>
+                                    <TextBlock x:Name="TxtCount10Centavos"
+                                               Text="0 coins"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#7E838F"
+                                               FontSize="11"
+                                               Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" x:Name="TxtValue10Centavos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TxtValue10Centavos"
+                                           Text="PHP 0.00"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#E0E3EB"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
 
                         <!-- 25 Cents Card -->
-                        <Border Background="#21152B" BorderBrush="#AE3EC9" BorderThickness="1" CornerRadius="8" Padding="12">
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Border Grid.Column="0" Background="#AE3EC9" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="25 cents (25¢)" Foreground="#BD93F9" FontWeight="Bold" FontSize="13"/>
-                                    <TextBlock x:Name="TxtCount25Centavos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                        <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="25 cents (25¢)"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#C5C9D3"
+                                               FontWeight="SemiBold"
+                                               FontSize="12"/>
+                                    <TextBlock x:Name="TxtCount25Centavos"
+                                               Text="0 coins"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#7E838F"
+                                               FontSize="11"
+                                               Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" x:Name="TxtValue25Centavos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TxtValue25Centavos"
+                                           Text="PHP 0.00"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#E0E3EB"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
 
                         <!-- 1 Peso Card -->
-                        <Border Background="#121F2D" BorderBrush="#1C7ED6" BorderThickness="1" CornerRadius="8" Padding="12">
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Border Grid.Column="0" Background="#1C7ED6" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="1 peso (₱1)" Foreground="#8BE9FD" FontWeight="Bold" FontSize="13"/>
-                                    <TextBlock x:Name="TxtCount1Peso" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                        <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="1 peso (PHP 1)"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#C5C9D3"
+                                               FontWeight="SemiBold"
+                                               FontSize="12"/>
+                                    <TextBlock x:Name="TxtCount1Peso"
+                                               Text="0 coins"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#7E838F"
+                                               FontSize="11"
+                                               Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" x:Name="TxtValue1Peso" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TxtValue1Peso"
+                                           Text="PHP 0.00"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#E0E3EB"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
 
                         <!-- 5 Pesos Card -->
-                        <Border Background="#12271A" BorderBrush="#2F9E44" BorderThickness="1" CornerRadius="8" Padding="12">
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Border Grid.Column="0" Background="#2F9E44" Width="10" Height="36" CornerRadius="4" Margin="0,0,10,0"/>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="5 pesos (₱5)" Foreground="#50FA7B" FontWeight="Bold" FontSize="13"/>
-                                    <TextBlock x:Name="TxtCount5Pesos" Text="0 coins" Foreground="#CBD5E1" FontSize="12"/>
+                        <Border Background="#202227" BorderBrush="#2F323A" BorderThickness="1" CornerRadius="4" Padding="12">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="5 pesos (PHP 5)"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#C5C9D3"
+                                               FontWeight="SemiBold"
+                                               FontSize="12"/>
+                                    <TextBlock x:Name="TxtCount5Pesos"
+                                               Text="0 coins"
+                                               FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                               Foreground="#7E838F"
+                                               FontSize="11"
+                                               Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" x:Name="TxtValue5Pesos" Text="₱ 0.00" Foreground="#F8FAFC" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1"
+                                           x:Name="TxtValue5Pesos"
+                                           Text="PHP 0.00"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#E0E3EB"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
 
-                        <Border Height="1" Background="#2D3148"/>
+                        <Border Height="1" Background="#26282E"/>
 
-                        <!-- Total Denomination Card -->
-                        <Border Background="#152818" BorderBrush="#40C057" BorderThickness="2" CornerRadius="10" Padding="16">
+                        <!-- Total Denomination Card (Muted Navy Accent) -->
+                        <Border Background="#1F2630" BorderBrush="#364557" BorderThickness="1" CornerRadius="6" Padding="16">
                             <StackPanel Spacing="6" HorizontalAlignment="Center">
                                 <TextBlock Text="TOTAL DENOMINATION"
-                                           Foreground="#86EFAC"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#9CAEC4"
                                            FontSize="11"
-                                           FontWeight="Bold"
+                                           FontWeight="SemiBold"
                                            HorizontalAlignment="Center"
-                                           LetterSpacing="1"/>
+                                           LetterSpacing="0.8"/>
 
                                 <TextBlock x:Name="TxtTotalAmount"
-                                           Text="₱ 0.00"
-                                           Foreground="#FACC15"
-                                           FontSize="32"
-                                           FontWeight="Bold"
+                                           Text="PHP 0.00"
+                                           FontFamily="'Playfair Display', 'Libre Baskerville', Georgia, 'Times New Roman', serif"
+                                           Foreground="#F2F5F8"
+                                           FontSize="30"
+                                           FontWeight="SemiBold"
                                            HorizontalAlignment="Center"/>
 
                                 <TextBlock x:Name="TxtTotalCount"
                                            Text="(0 coins detected)"
-                                           Foreground="#94A3B8"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#78879A"
                                            FontSize="12"
                                            HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Border>
 
-                        <!-- Algorithm & Detection Info -->
-                        <Border Background="#10121C" CornerRadius="8" Padding="12" BorderBrush="#25283D" BorderThickness="1">
-                            <StackPanel Spacing="6">
-                                <TextBlock Text="ℹ️ DIP Algorithm Details" Foreground="#94A3B8" FontSize="11" FontWeight="Bold"/>
-                                <TextBlock Text="• Otsu Adaptive Binarization" Foreground="#64748B" FontSize="10"/>
-                                <TextBlock Text="• 4-Connected Component BFS" Foreground="#64748B" FontSize="10"/>
-                                <TextBlock Text="• Centroid Moments &amp; Area" Foreground="#64748B" FontSize="10"/>
-                                <TextBlock Text="• Central Hole Detection (5¢)" Foreground="#64748B" FontSize="10"/>
-                                <TextBlock Text="• Top-Left to Bottom-Right Row Sort" Foreground="#64748B" FontSize="10"/>
+                        <!-- DIP Methods Summary -->
+                        <Border Background="#18191C" BorderBrush="#25262B" BorderThickness="1" CornerRadius="4" Padding="12">
+                            <StackPanel Spacing="5">
+                                <TextBlock Text="Image Processing Pipeline"
+                                           FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif"
+                                           Foreground="#858994"
+                                           FontSize="11"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock Text="- Otsu Adaptive Binarization" FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif" Foreground="#656973" FontSize="10"/>
+                                <TextBlock Text="- 4-Connected Component BFS" FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif" Foreground="#656973" FontSize="10"/>
+                                <TextBlock Text="- Spatial Centroid and Area Moments" FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif" Foreground="#656973" FontSize="10"/>
+                                <TextBlock Text="- Kernel Center Hole Detection (5c)" FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif" Foreground="#656973" FontSize="10"/>
+                                <TextBlock Text="- Raster Band Row Sorting" FontFamily="Inter, -apple-system, 'Segoe UI', Roboto, sans-serif" Foreground="#656973" FontSize="10"/>
                             </StackPanel>
                         </Border>
 

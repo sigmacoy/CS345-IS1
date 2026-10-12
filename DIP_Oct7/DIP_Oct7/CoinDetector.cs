@@ -72,11 +72,11 @@ public static class CoinDetector
 
     public static string GetDenominationDisplayName(CoinDenomination d) => d switch
     {
-        CoinDenomination.Centavo5  => "5¢",
-        CoinDenomination.Centavo10 => "10¢",
-        CoinDenomination.Centavo25 => "25¢",
-        CoinDenomination.Peso1     => "₱1",
-        CoinDenomination.Peso5     => "₱5",
+        CoinDenomination.Centavo5  => "5c",
+        CoinDenomination.Centavo10 => "10c",
+        CoinDenomination.Centavo25 => "25c",
+        CoinDenomination.Peso1     => "1 Peso",
+        CoinDenomination.Peso5     => "5 Pesos",
         _                          => "?"
     };
 
