@@ -46,7 +46,7 @@ public record CoinDetectionResult(
     public int TotalCoins => Coins.Count;
 }
 
-/// <summary>
+
 /// Digital Image Processing (DIP) Engine implemented in pure C#.
 /// Does NOT use OpenCV or any external computer vision libraries.
 /// Replicates core DIP algorithms:
@@ -57,7 +57,7 @@ public record CoinDetectionResult(
 ///   5. Morphological Hole Detection (detecting center hole in 5-centimo coins)
 ///   6. 2D Topological Row Sorting (Top-Left to Bottom-Right reading order)
 ///   7. Physical Dimension-based Denomination Classification
-/// </summary>
+
 public static class CoinDetector
 {
     public static double GetDenominationValue(CoinDenomination d) => d switch
@@ -281,10 +281,8 @@ public static class CoinDetector
 
         return new CoinDetectionResult(finalCoins, c5, c10, c25, p1, p5, totalVal);
     }
-
-    /// <summary>
+    
     /// Replicated Otsu's thresholding algorithm for optimal binarization.
-    /// </summary>
     private static int CalculateOtsuThreshold(int[] histogram, int totalPixels)
     {
         double sum = 0;
@@ -317,8 +315,7 @@ public static class CoinDetector
 
         return bestThreshold;
     }
-
-    /// <summary>
+    
     /// Classifies coin denomination based on equivalent circle radius and central hole.
     /// Philippine Peso Coin Diameters & equivalent radii:
     ///   5¢  : Holed coin, R ≈ 29.5 px
@@ -326,7 +323,6 @@ public static class CoinDetector
     ///   25¢ : R ≈ 38.5 px (solid, 19.5 mm)
     ///   ₱1  : R ≈ 45.4 px (solid, 23.0 mm)
     ///   ₱5  : R ≈ 50.8 px (solid, 27.0 mm)
-    /// </summary>
     private static CoinDenomination Classify(double equivRadius, bool hasHole)
     {
         if (hasHole || equivRadius < 31.0)
