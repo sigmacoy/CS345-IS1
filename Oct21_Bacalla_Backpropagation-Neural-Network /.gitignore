@@ -1,0 +1,29 @@
+# Build and Compilation Artifacts (.NET)
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+*.dll
+*.exe
+*.pdb
+
+# JetBrains Rider & IDEs
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+
+# macOS Junk
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# User-specific & local environment files
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
