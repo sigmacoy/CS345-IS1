@@ -9,6 +9,7 @@ obj/
 
 # JetBrains Rider & IDEs
 .idea/
+.run/
 *.sln.iml
 
 # Visual Studio Code
